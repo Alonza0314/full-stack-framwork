@@ -76,12 +76,12 @@ func (b *backend) returnPages() gin.HandlerFunc {
 		if method == http.MethodGet {
 
 			destPath := filepath.Join(b.frontendFilePath, c.Request.URL.Path)
-			if _, err := os.Stat(destPath); err == nil {
+			if stat, err := os.Stat(destPath); err == nil && !stat.IsDir() {
 				c.File(filepath.Clean(destPath))
 				return
 			}
 
-			c.File(filepath.Clean("build/console/index.html"))
+			c.File(filepath.Clean(filepath.Join(b.frontendFilePath, "index.html")))
 		} else {
 			c.Next()
 		}

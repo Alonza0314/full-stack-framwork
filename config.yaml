@@ -8,7 +8,7 @@ backend:
     secret: "full-stack-framework"
     expiresIn: 1h
 
-  frontenfFilePath: "build/frontend"
+  frontendFilePath: "build/frontend"
 
 logger:
   level: "info"

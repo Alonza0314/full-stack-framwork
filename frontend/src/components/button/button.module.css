@@ -11,6 +11,13 @@
   border: none;
 }
 
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .primary {
   background: linear-gradient(135deg, #4f46e5, #9333ea);
   box-shadow: 0 4px 12px rgba(147, 51, 234, 0.25);
