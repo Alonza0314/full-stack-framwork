@@ -11,9 +11,10 @@ import (
 type BackendLogger struct {
 	*loggergo.Logger
 
-	CfgLog loggergoModel.LoggerInterface
-	AccLog loggergoModel.LoggerInterface
-	BckLog loggergoModel.LoggerInterface
+	CfgLog  loggergoModel.LoggerInterface
+	AccLog  loggergoModel.LoggerInterface
+	BckLog  loggergoModel.LoggerInterface
+	ProcLog loggergoModel.LoggerInterface
 }
 
 func NewBackendLogger(level loggergoUtil.LogLevelString, filePath string, debugMode bool) *BackendLogger {
@@ -23,8 +24,9 @@ func NewBackendLogger(level loggergoUtil.LogLevelString, filePath string, debugM
 	return &BackendLogger{
 		Logger: logger,
 
-		CfgLog: logger.WithTags(constant.CFG_LOG),
-		AccLog: logger.WithTags(constant.ACC_LOG),
-		BckLog: logger.WithTags(constant.BCK_LOG),
+		CfgLog:  logger.WithTags(constant.CFG_LOG),
+		AccLog:  logger.WithTags(constant.ACC_LOG),
+		BckLog:  logger.WithTags(constant.BCK_LOG),
+		ProcLog: logger.WithTags(constant.PROC_LOG),
 	}
 }

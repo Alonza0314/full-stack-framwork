@@ -42,3 +42,11 @@ And run:
 ```bash
 ./build/system -c config.yaml
 ```
+
+## Develop Steps
+
+1. Add APIs in backend.
+2. Updaet APIs in postman and export the json file
+3. Update the openapi.yaml with your postman json
+4. Use openapi-generator-docker.sh to generate the api typescript file in frontend
+5. Go to make!

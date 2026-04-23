@@ -6,9 +6,9 @@ backend:
 
   jwt:
     secret: "full-stack-framework"
-    expire: 24h
+    expiresIn: 1h
 
-  frontenfFilePath: ""
+  frontenfFilePath: "build/frontend"
 
 logger:
   level: "info"

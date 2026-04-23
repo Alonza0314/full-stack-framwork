@@ -3,6 +3,7 @@ package internal
 import (
 	"backend/config"
 	"backend/constant"
+	"backend/internal/processor"
 	"backend/logger"
 	"context"
 	"fmt"
@@ -34,6 +35,8 @@ type backend struct {
 
 	frontendFilePath string
 
+	processor.Processor
+
 	*logger.BackendLogger
 }
 
@@ -53,6 +56,8 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 		},
 
 		frontendFilePath: config.Backend.FrontendFilePath,
+
+		Processor: *processor.NewProcessor(config.Backend.Username, config.Backend.Password, config.Backend.JWT.Secret, config.Backend.JWT.ExpiresIn, logger),
 
 		BackendLogger: logger,
 	}
@@ -116,25 +121,9 @@ func (b *backend) Stop() {
 }
 
 func (b *backend) iniRoutes() util.Routes {
-	return util.Routes{
-		{
-			Name:        "Login",
-			Method:      http.MethodPost,
-			Pattern:     "/login",
-			HandlerFunc: b.handleLogin,
-		},
-		{
-			Name:        "Logout",
-			Method:      http.MethodPost,
-			Pattern:     "/logout",
-			HandlerFunc: b.handleLogout,
-		},
-	}
-}
+	routes := make(util.Routes, 0)
 
-func (b *backend) handleLogin(c *gin.Context) {
-}
+	routes = append(routes, b.getAccountRoutes()...)
 
-func (b *backend) handleLogout(c *gin.Context) {
-
+	return routes
 }

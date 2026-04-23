@@ -1,6 +1,8 @@
 .PHONY: backend frontend clean
 
 BACKEND_SRC := $(shell find backend -name "*.go")
+FRONTEND_SRC := $(shell find frontend -type f ! -path "frontend/dist/*" ! -path "frontend/node_modules/*")
+FRONTEND_STAMP := build/frontend/.stamp
 
 all: backend frontend
 
@@ -9,6 +11,18 @@ build/system: $(BACKEND_SRC)
 	mkdir -p build
 	cd backend && go build -o ../build/system .
 	@echo "[✔] Backend build finished"
+
+build/frontend: $(FRONTEND_SRC)
+	@echo "[+] Installing frontend deps..."
+	cd frontend && yarn install
+
+	@echo "[+] Building frontend..."
+	cd frontend && yarn build
+
+	@echo "[✔] Frontend build finished"
+	@mkdir -p build/frontend
+	@cp -r frontend/dist/. build/frontend/
+	@touch $(FRONTEND_STAMP)
 
 backend:
 	@if [ -f build/system ]; then \
@@ -20,8 +34,14 @@ backend:
 	$(MAKE) build/system
 
 frontend:
-	@echo "[+] Building frontend..."
-	@echo "[✔] Frontend build finished"
+	@if [ -f $(FRONTEND_STAMP) ]; then \
+		if [ -z "$$(find frontend -type f -newer $(FRONTEND_STAMP))" ]; then \
+			echo "[✔] frontend is up-to-date, no build needed"; \
+			exit 0; \
+		fi; \
+	fi; \
+	$(MAKE) build/frontend
 
 clean:
+	rm -rf build
 	rm -rf build
