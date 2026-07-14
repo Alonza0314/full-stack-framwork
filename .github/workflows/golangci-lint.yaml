@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [ '1.25.5' ]
+        go: [ '1.26.2' ]
     steps:
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -23,6 +23,6 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v9
         with:
-          version: v2.7.2
+          version: v2.11.4
           working-directory: backend
           args: ./...
