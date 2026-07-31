@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"time"
 
+	loggergo "github.com/Alonza0314/logger-go/v2"
 	"github.com/free-ran-ue/util"
 	"github.com/gin-gonic/gin"
 )
@@ -61,6 +62,8 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 
 		BackendLogger: logger,
 	}
+
+	gin.DefaultWriter, gin.DefaultErrorWriter = loggergo.NewGinWriter(logger.GinLog), loggergo.NewGinWriter(logger.GinLog)
 
 	b.router = util.NewGinRouter(constant.API_PREFIX, b.iniRoutes())
 	b.router.NoRoute(b.returnPages())

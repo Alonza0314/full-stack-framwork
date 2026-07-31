@@ -14,20 +14,18 @@ func (b *backend) getAccountRoutes() util.Routes {
 			Name:        "Login",
 			Method:      http.MethodPost,
 			Pattern:     "/login",
-			HandlerFunc: b.handleLogin,
+			HandlerFunc: withLogging("Login", b.AccLog, b.handleLogin),
 		},
 		{
 			Name:        "Logout",
 			Method:      http.MethodPost,
 			Pattern:     "/logout",
-			HandlerFunc: b.handleLogout,
+			HandlerFunc: withLogging("Logout", b.AccLog, b.handleLogout),
 		},
 	}
 }
 
 func (b *backend) handleLogin(c *gin.Context) {
-	b.AccLog.Infof("Login attempt from %s", c.ClientIP())
-
 	var req model.RequestLogin
 	if err := c.ShouldBindJSON(&req); err != nil {
 		b.AccLog.Warnf("Invalid login request from %s: %v\n", c.ClientIP(), err)
@@ -46,12 +44,9 @@ func (b *backend) handleLogin(c *gin.Context) {
 		return
 	}
 
-	b.AccLog.Infof("Login successful for %s", c.ClientIP())
 	c.JSON(http.StatusOK, response)
 }
 
 func (b *backend) handleLogout(c *gin.Context) {
-	b.AccLog.Infof("Logout successful from %s", c.ClientIP())
-
 	c.Status(http.StatusNoContent)
 }

@@ -6,6 +6,7 @@ const (
 	ACC_LOG  = "ACC"
 	BCK_LOG  = "BCK"
 	PROC_LOG = "PROC"
+	API_LOG  = "API"
 )
 
 // api prefix
