@@ -1,0 +1,12 @@
+services:
+  system:
+    container_name: system
+    image: alonza0314/full-stack-framework:latest
+    command: ./system -c config.yaml
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./config.yaml:/system/config.yaml
+      - /var/lib/system/db:/system/db

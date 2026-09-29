@@ -14,15 +14,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: |
-          cd frontend
+          cd web/frontend
           corepack enable
           yarn install
 
       - name: Build
         run: |
-          cd frontend
+          cd web/frontend
           yarn build

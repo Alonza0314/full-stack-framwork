@@ -10,9 +10,9 @@ backend:
 
   db:
     type: "bbolt"
-    path: "/tmp/system.db"
+    path: "./db/system.db"
 
-  frontendFilePath: "build/frontend"
+  frontendFilePath: "frontend"
 
 logger:
   level: "info"
