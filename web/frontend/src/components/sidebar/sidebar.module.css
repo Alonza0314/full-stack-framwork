@@ -1,63 +1,79 @@
 .sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
-  border-right: 1px solid #dbe5f0;
-  background: rgba(255, 255, 255, 0.84);
-  backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
 .badge {
   display: inline-block;
-  margin: 0;
-  padding: 0.2rem 0.55rem;
+  margin: 0 0 0.75rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #0f766e;
   background: #ccfbf1;
+  color: #0f766e;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .brand {
-  margin: 0.8rem 0 1.2rem;
-  font-size: 1.3rem;
+  margin: 0 0 1.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
   color: #0f172a;
 }
 
 .nav {
-  display: grid;
-  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.navGroup {
+  margin: 1.5rem 0 0.5rem 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
 }
 
 .navItem {
-  display: block;
-  padding: 0.6rem 0.75rem;
-  border-radius: 10px;
+  padding: 0.56rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
   text-decoration: none;
-  color: #334155;
-  font-weight: 600;
-  transition: background-color 120ms ease;
 }
 
 .navItem:hover {
-  background: #e2e8f0;
+  background: #f1f5f9;
 }
 
 .navItemActive {
   background: #ccfbf1;
   color: #0f766e;
-}
-
-.logoutWrap {
-  padding-top: 1rem;
-  border-top: 1px solid #e2e8f0;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {
   .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
     border-right: 0;
-    border-bottom: 1px solid #dbe5f0;
-    gap: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
   }
 }

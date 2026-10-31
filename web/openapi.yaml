@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
   title: full-stack-framework API
-  description: Automatically generated OpenAPI spec from Postman collection "full-stack-framework"
+  description: The source of truth for the backend API. Edit this file, then run `make openapi` to regenerate web/frontend/src/api.
   version: 1.0.0
 servers:
-  - url: http://127.0.0.1:5000
-    description: Default local server
+  # the backend serves the frontend too, so the API is on the page's own origin
+  - url: /
 paths:
   /api/login:
     post:

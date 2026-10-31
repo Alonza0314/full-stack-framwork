@@ -1,7 +1,12 @@
 import axios from 'axios'
 import { Configuration, DefaultApi } from './api'
 
-const apiBasePath = import.meta.env.VITE_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8888`
+// apiBaseUrl is where the backend's API lives. The backend serves this page
+// too, so by default it is the page's own origin (any port, http or https,
+// behind a reverse proxy or not). VITE_API_BASE_URL overrides it;
+// `yarn dev` instead proxies /api to the backend (vite.config.ts).
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || window.location.origin
+const apiBasePath = apiBaseUrl
 
 const axiosInstance = axios.create()
 
@@ -11,6 +16,10 @@ const axiosInstance = axios.create()
 // to /login, same as a manual logout. Module-level, so this can't use
 // react-router's useNavigate - a hard redirect is the simplest way to force
 // every component back to a clean, logged-out state.
+//
+// So the backend must answer 401 only when its own JWT check fails. When a
+// call it makes to another service is rejected, it answers 502 (or 403)
+// instead - passing that 401 through would log the user out.
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {

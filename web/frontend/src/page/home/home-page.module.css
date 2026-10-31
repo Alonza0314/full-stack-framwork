@@ -1,11 +1,12 @@
 .layout {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr;
+  display: flex;
   background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
 }
 
 .content {
+  flex-grow: 1;
+  min-width: 0;
   padding: 2rem;
 }
 
@@ -47,6 +48,6 @@
 
 @media (max-width: 900px) {
   .layout {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }

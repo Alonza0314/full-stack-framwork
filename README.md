@@ -67,8 +67,14 @@ make run
 
 ## Develop Steps
 
-1. Add APIs in backend.
-2. Updaet APIs in postman and export the json file
-3. Update the openapi.yaml with your postman json
-4. Use `make openapi` to generate the api typescript file in frontend
+`web/openapi.yaml` is the single source of truth for the API.
+
+1. Add or change the paths and schemas in `web/openapi.yaml`.
+2. Run `make openapi` to regenerate the typescript client in `web/frontend/src/api` (never edit it by hand).
+3. Implement the routes in the backend (`web/backend/internal/api_xxx.go` + `processor`).
+4. Call them from the frontend through `api` in `web/frontend/src/apiClient.ts`.
 5. Go to make!
+
+For frontend development with hot reload, run the backend (`make backend && make run`) and then `yarn dev` in `web/frontend`: Vite proxies `/api` to `http://localhost:8888`, or to `VITE_DEV_API_TARGET` if set.
+
+See [CLAUDE.md](./CLAUDE.md) for the project conventions.

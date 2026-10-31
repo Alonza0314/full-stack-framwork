@@ -1,6 +1,6 @@
 .PHONY: backend frontend openapi run tidy lint clean docker
 
-BACKEND_SRC := $(shell find web/backend -name "*.go")
+BACKEND_SRC := $(shell find web/backend -type f)
 FRONTEND_SRC := $(shell find web/frontend -type f ! -path "web/frontend/dist/*" ! -path "web/frontend/node_modules/*")
 FRONTEND_STAMP := build/frontend/.stamp
 
@@ -29,7 +29,7 @@ build/frontend: $(FRONTEND_SRC)
 
 backend:
 	@if [ -f build/system ]; then \
-		if [ -z "$$(find web/backend -name '*.go' -newer build/system)" ]; then \
+		if [ -z "$$(find web/backend -type f -newer build/system)" ]; then \
 			echo "[✔] backend is up-to-date, no build needed"; \
 			exit 0; \
 		fi; \
